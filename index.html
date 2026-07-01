@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kevin & May · Wrapped</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #050505;
+    color: #f5f5f5;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+  }
+  body::-webkit-scrollbar { display: none; }
+  body { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 24px;
+    text-align: center;
+    position: relative;
+    scroll-snap-align: start;
+    overflow: hidden;
+  }
+
+  /* Background ambient glow */
+  .screen::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(201, 169, 110, 0.08) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .screen > * { position: relative; z-index: 1; }
+
+  /* Reveal animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: reveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  .reveal:nth-child(1) { animation-delay: 0.1s; }
+  .reveal:nth-child(2) { animation-delay: 0.3s; }
+  .reveal:nth-child(3) { animation-delay: 0.5s; }
+  .reveal:nth-child(4) { animation-delay: 0.7s; }
+  .reveal:nth-child(5) { animation-delay: 0.9s; }
+  .reveal:nth-child(6) { animation-delay: 1.1s; }
+
+  @keyframes reveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #c9a96e;
+    font-weight: 500;
+    margin-bottom: 32px;
+  }
+
+  .big {
+    font-size: clamp(3.5rem, 14vw, 8rem);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    margin: 12px 0;
+    background: linear-gradient(135deg, #fff 0%, #c9a96e 50%, #fff 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .big-2 {
+    font-size: clamp(2.2rem, 9vw, 4.5rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin: 12px 0;
+  }
+
+  .sub {
+    font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+    color: #b8b8b8;
+    font-weight: 300;
+    max-width: 480px;
+    margin-top: 16px;
+  }
+
+  .rule {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c9a96e, transparent);
+    margin: 32px auto;
+  }
+
+  .who-talks {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 540px;
+  }
+
+  .who {
+    flex: 1;
+    min-width: 160px;
+    max-width: 240px;
+    padding: 28px 20px;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #141414 0%, #0a0a0a 100%);
+    border: 1px solid #1f1f1f;
+    position: relative;
+    overflow: hidden;
+  }
+  .who::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c9a96e, transparent);
+  }
+  .who .name {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .who .pct {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #c9a96e;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .who .msgs {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 6px;
+  }
+
+  .top-words {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 24px;
+    align-items: center;
+  }
+
+  .top-word {
+    background: rgba(20, 20, 20, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #222;
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 500;
+  }
+  .top-word .rank {
+    color: #c9a96e;
+    font-weight: 700;
+    margin-right: 12px;
+  }
+  .top-word .count {
+    color: #888;
+    font-size: 0.85rem;
+    margin-left: 10px;
+  }
+
+  .moment {
+    background: linear-gradient(145deg, #141414 0%, #0a0a0a 100%);
+    padding: 36px 32px;
+    border-radius: 20px;
+    margin-top: 24px;
+    max-width: 520px;
+    border-left: 3px solid #c9a96e;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .moment .quote {
+    font-size: clamp(1.4rem, 4vw, 1.9rem);
+    font-style: italic;
+    color: #fff;
+    margin-bottom: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+  .moment .who-quote {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #c9a96e;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .moment .when {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  /* FOOTER */
+  .footer-screen {
+    background: radial-gradient(ellipse at center, #1a1410 0%, #0a0a0a 70%);
+  }
+  .footer-screen .heart {
+    font-size: 5rem;
+    color: #c9a96e;
+    margin-bottom: 32px;
+    animation: pulse 2s ease-in-out infinite;
+    text-shadow: 0 0 40px rgba(201, 169, 110, 0.4);
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .footer-screen .sign {
+    margin-top: 56px;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #555;
+  }
+  .footer-screen .sign .gold { color: #c9a96e; }
+
+  /* FOTO SCREEN */
+  .photo-frame {
+    width: min(75vw, 340px);
+    height: min(75vw, 340px);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #c9a96e;
+    box-shadow:
+      0 0 80px rgba(201, 169, 110, 0.3),
+      0 0 0 8px rgba(201, 169, 110, 0.05),
+      inset 0 0 40px rgba(0,0,0,0.3);
+    margin: 24px 0;
+    background: #1a1a1a;
+    position: relative;
+    animation: floaty 4s ease-in-out infinite;
+  }
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-names {
+    font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+    font-weight: 300;
+    color: #fff;
+    margin-top: 32px;
+    letter-spacing: 0.04em;
+  }
+  .photo-names .amp {
+    color: #c9a96e;
+    font-style: italic;
+    margin: 0 12px;
+    font-weight: 400;
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #444;
+    animation: hint 2s infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .scroll-hint .arrow {
+    width: 1px;
+    height: 24px;
+    background: linear-gradient(180deg, #444, transparent);
+  }
+  @keyframes hint {
+    0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 0.8; transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* Dot navigation */
+  .nav-dots {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 100;
+  }
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .nav-dot.active {
+    background: #c9a96e;
+    transform: scale(1.5);
+    box-shadow: 0 0 12px rgba(201, 169, 110, 0.6);
+  }
+  .nav-dot:hover { background: rgba(255,255,255,0.4); }
+
+  @media (max-width: 600px) {
+    .nav-dots { right: 12px; gap: 8px; }
+    .photo-frame { width: min(70vw, 280px); height: min(70vw, 280px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Dot nav -->
+<div class="nav-dots" id="navDots">
+  <div class="nav-dot active" data-i="0"></div>
+  <div class="nav-dot" data-i="1"></div>
+  <div class="nav-dot" data-i="2"></div>
+  <div class="nav-dot" data-i="3"></div>
+  <div class="nav-dot" data-i="4"></div>
+  <div class="nav-dot" data-i="5"></div>
+  <div class="nav-dot" data-i="6"></div>
+  <div class="nav-dot" data-i="7"></div>
+  <div class="nav-dot" data-i="8"></div>
+  <div class="nav-dot" data-i="9"></div>
+</div>
+
+<!-- HERO -->
+<section class="screen">
+  <div class="label reveal">Kevin & May · Wrapped</div>
+  <div class="big reveal">20</div>
+  <div class="sub reveal">meses de mensajes que valen oro</div>
+  <div class="rule reveal"></div>
+  <div class="sub reveal" style="font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:#888;">
+    Desde el 10 de noviembre de 2024
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><span class="arrow"></span></div>
+</section>
+
+<!-- FOTO -->
+<section class="screen">
+  <div class="label reveal">Ustedes</div>
+  <div class="photo-frame reveal">
+    <img src="kevin_may_foto.jpg" alt="Kevin & May">
+  </div>
+  <div class="photo-names reveal">Kevin<span class="amp">&</span>May</div>
+</section>
+
+<!-- TOTALES -->
+<section class="screen">
+  <div class="label reveal">Lo que se dijeron</div>
+  <div class="big reveal">228,240</div>
+  <div class="sub reveal">mensajes en 584 días</div>
+  <div class="rule reveal"></div>
+  <div class="sub reveal">391 mensajes por día en promedio</div>
+</section>
+
+<!-- QUIÉN HABLA MÁS -->
+<section class="screen">
+  <div class="label reveal">¿Quién habla más?</div>
+  <div class="who-talks reveal">
+    <div class="who">
+      <div class="name">Kevin</div>
+      <div class="pct">50.2%</div>
+      <div class="msgs">114,554 mensajes</div>
+    </div>
+    <div class="who">
+      <div class="name">May</div>
+      <div class="pct">49.8%</div>
+      <div class="msgs">113,686 mensajes</div>
+    </div>
+  </div>
+  <div class="rule reveal"></div>
+  <div class="sub reveal">868 mensajes de diferencia. Casi empate.</div>
+</section>
+
+<!-- PALABRA DEL AÑO -->
+<section class="screen">
+  <div class="label reveal">Palabra del año</div>
+  <div class="big reveal">amor</div>
+  <div class="sub reveal">dicha 12,392 veces en este chat</div>
+  <div class="rule reveal"></div>
+  <div class="top-words reveal">
+    <div class="top-word"><span class="rank">#2</span>así<span class="count">7,064</span></div>
+    <div class="top-word"><span class="rank">#3</span>hahaha<span class="count">5,873</span></div>
+  </div>
+</section>
+
+<!-- HORA MÁS ACTIVA -->
+<section class="screen">
+  <div class="label reveal">Hora más activa</div>
+  <div class="big reveal">00:00</div>
+  <div class="sub reveal">21,680 mensajes a esa hora</div>
+  <div class="rule reveal"></div>
+  <div class="sub reveal">Las altas horas de la madrugada son suyas. Segundo y tercer puesto: 23:00 y 1:00.</div>
+</section>
+
+<!-- MES MÁS ACTIVO -->
+<section class="screen">
+  <div class="label reveal">Mes más activo</div>
+  <div class="big-2 reveal">octubre 2025</div>
+  <div class="big reveal" style="font-size:clamp(2rem,7vw,3.5rem);">15,786</div>
+  <div class="sub reveal">mensajes en un solo mes</div>
+</section>
+
+<!-- RACHA -->
+<section class="screen">
+  <div class="label reveal">Racha máxima</div>
+  <div class="big reveal">280</div>
+  <div class="sub reveal">días seguidos escribiéndose</div>
+  <div class="rule reveal"></div>
+  <div class="sub reveal">Y de 598 días totales, hubo 14 sin hablar. No está nada mal.</div>
+</section>
+
+<!-- PRIMER TE AMO -->
+<section class="screen">
+  <div class="label reveal">El momento</div>
+  <div class="moment reveal">
+    <div class="who-quote">Kevin lo dijo primero</div>
+    <div class="quote">"Te amo ❤️"</div>
+    <div class="when">08 de April de 2025</div>
+  </div>
+  <div class="rule reveal"></div>
+  <div class="sub reveal">Habían pasado 5 meses desde su primer mensaje.</div>
+</section>
+
+<!-- PALABRAS DE CADA UNO -->
+<section class="screen">
+  <div class="label reveal">Palabras favoritas</div>
+  <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;justify-content:center;">
+    <div class="reveal" style="text-align:left;">
+      <div style="font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:#888;margin-bottom:16px;">Kevin</div>
+      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">1</span>amor<span class="count">9,752</span></div>
+      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">2</span>hahaha<span class="count">5,873</span></div>
+      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">3</span>así<span class="count">3,300</span></div>
+      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">4</span>está<span class="count">2,895</span></div>
+      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">5</span>voy<span class="count">2,143</span></div>
+    </div>
+    <div class="reveal" style="text-align:left;">
+      <div style="font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:#888;margin-bottom:16px;">May</div>
+      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">1</span>así<span class="count">3,764</span></div>
+      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">2</span>amor<span class="count">2,640</span></div>
+      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">3</span>bueno<span class="count">2,383</span></div>
+      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">4</span>voy<span class="count">2,289</span></div>
+      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">5</span>está<span class="count">2,270</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section class="screen footer-screen">
+  <div class="heart reveal">♥</div>
+  <div class="label reveal" style="margin-bottom:0;">Kevin & May</div>
+  <div class="big-2 reveal">Esto apenas empieza</div>
+  <div class="rule reveal"></div>
+  <div class="sub reveal" style="max-width:480px;">Del primer "Hola team frío" del 10 de noviembre de 2024 a hoy, este chat cuenta la historia de ustedes.</div>
+  <div class="sign reveal">Wrapped <span class="gold">·</span> Generado con datos reales <span class="gold">·</span> 1 de julio de 2026</div>
+</section>
+
+<script>
+  // Animación de reveal al entrar cada screen
+  const screens = document.querySelectorAll('.screen');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const reveals = entry.target.querySelectorAll('.reveal');
+        reveals.forEach((el, i) => {
+          el.style.animation = 'none';
+          el.offsetHeight; // reflow
+          el.style.animation = `reveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) ${i * 0.15}s forwards`;
+        });
+        // Update nav dots
+        const idx = Array.from(screens).indexOf(entry.target);
+        document.querySelectorAll('.nav-dot').forEach((d, i) => {
+          d.classList.toggle('active', i === idx);
+        });
+      }
+    });
+  }, { threshold: 0.5 });
+  screens.forEach(s => observer.observe(s));
+
+  // Nav dots click
+  document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      screens[i].scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
