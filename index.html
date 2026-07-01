@@ -92,16 +92,6 @@
     margin: 12px 0;
   }
 
-  .phrase-big {
-    font-size: clamp(2rem, 8vw, 4rem);
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin: 16px 0;
-    font-style: italic;
-  }
-
   .sub {
     font-size: clamp(0.95rem, 2.5vw, 1.2rem);
     color: #b8b8b8;
@@ -206,34 +196,58 @@
     letter-spacing: 0.05em;
   }
 
-  .top-words {
+  /* Frases por persona */
+  .personas {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 24px;
-    align-items: center;
+    gap: 40px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 800px;
   }
-
-  .top-word {
+  .persona-col {
+    flex: 1;
+    min-width: 280px;
+    max-width: 380px;
+    text-align: left;
+  }
+  .persona-col h3 {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 16px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .persona-col .frase-mini {
     background: rgba(20, 20, 20, 0.7);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid #222;
-    padding: 14px 28px;
-    border-radius: 100px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .persona-col .frase-mini .rank {
+    flex: 0 0 24px;
     font-size: 1.1rem;
-    color: #fff;
-    font-weight: 500;
-  }
-  .top-word .rank {
+    font-weight: 800;
     color: #c9a96e;
-    font-weight: 700;
-    margin-right: 12px;
   }
-  .top-word .count {
+  .persona-col .frase-mini .txt {
+    flex: 1;
+    font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+    font-weight: 500;
+    color: #fff;
+    font-style: italic;
+  }
+  .persona-col .frase-mini .count {
+    font-size: 0.75rem;
     color: #888;
-    font-size: 0.85rem;
-    margin-left: 10px;
   }
 
   .moment {
@@ -384,6 +398,8 @@
   @media (max-width: 600px) {
     .nav-dots { right: 12px; gap: 8px; }
     .photo-frame { width: min(70vw, 280px); height: min(70vw, 280px); }
+    .personas { flex-direction: column; align-items: center; }
+    .persona-col { width: 100%; max-width: 400px; }
   }
 </style>
 </head>
@@ -452,7 +468,7 @@
   <div class="sub">868 mensajes de diferencia. Casi empate.</div>
 </section>
 
-<!-- FRASES DEL AÑO (NUEVA pantalla reemplazando "Palabra del año") -->
+<!-- FRASES DEL AÑO (ambos) -->
 <section class="screen">
   <div class="label">Frases del año</div>
   <div class="frases-list">
@@ -464,6 +480,29 @@
   </div>
   <div class="rule"></div>
   <div class="sub">Las cosas que más se dijeron entre ustedes.</div>
+</section>
+
+<!-- FRASES POR PERSONA (NUEVA: reemplaza "Palabras favoritas") -->
+<section class="screen">
+  <div class="label">Frases favoritas</div>
+  <div class="personas">
+    <div class="persona-col">
+      <h3>Kevin</h3>
+      <div class="frase-mini"><div class="rank">1</div><div class="txt">"amor linda"</div><div class="count">477×</div></div>
+      <div class="frase-mini"><div class="rank">2</div><div class="txt">"bueno amor"</div><div class="count">460×</div></div>
+      <div class="frase-mini"><div class="rank">3</div><div class="txt">"amo mucho"</div><div class="count">399×</div></div>
+      <div class="frase-mini"><div class="rank">4</div><div class="txt">"gracias amor"</div><div class="count">397×</div></div>
+      <div class="frase-mini"><div class="rank">5</div><div class="txt">"hola amor"</div><div class="count">358×</div></div>
+    </div>
+    <div class="persona-col">
+      <h3>May</h3>
+      <div class="frase-mini"><div class="rank">1</div><div class="txt">"amo mucho"</div><div class="count">236×</div></div>
+      <div class="frase-mini"><div class="rank">2</div><div class="txt">"gracias amor"</div><div class="count">166×</div></div>
+      <div class="frase-mini"><div class="rank">3</div><div class="txt">"amor buenos"</div><div class="count">158×</div></div>
+      <div class="frase-mini"><div class="rank">4</div><div class="txt">"hola amor"</div><div class="count">115×</div></div>
+      <div class="frase-mini"><div class="rank">5</div><div class="txt">"buenas noches"</div><div class="count">87×</div></div>
+    </div>
+  </div>
 </section>
 
 <!-- HORA MÁS ACTIVA -->
@@ -502,29 +541,6 @@
   </div>
   <div class="rule"></div>
   <div class="sub">Habían pasado 5 meses desde su primer mensaje.</div>
-</section>
-
-<!-- PALABRAS FAVORITAS (sin top 3 ranking) -->
-<section class="screen">
-  <div class="label">Palabras favoritas</div>
-  <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;justify-content:center;">
-    <div style="text-align:left;">
-      <div style="font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:#888;margin-bottom:16px;">Kevin</div>
-      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">1</span>amor<span class="count">9,752</span></div>
-      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">2</span>hahaha<span class="count">5,873</span></div>
-      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">3</span>así<span class="count">3,300</span></div>
-      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">4</span>está<span class="count">2,895</span></div>
-      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">5</span>voy<span class="count">2,143</span></div>
-    </div>
-    <div style="text-align:left;">
-      <div style="font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:#888;margin-bottom:16px;">May</div>
-      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">1</span>así<span class="count">3,764</span></div>
-      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">2</span>amor<span class="count">2,640</span></div>
-      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">3</span>bueno<span class="count">2,383</span></div>
-      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">4</span>voy<span class="count">2,289</span></div>
-      <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">5</span>está<span class="count">2,270</span></div>
-    </div>
-  </div>
 </section>
 
 <!-- FOOTER -->
