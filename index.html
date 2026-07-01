@@ -196,7 +196,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* Frases por persona */
   .personas {
     display: flex;
     gap: 40px;
@@ -248,6 +247,38 @@
   .persona-col .frase-mini .count {
     font-size: 0.75rem;
     color: #888;
+  }
+
+  /* Split bars */
+  .split {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 540px;
+    width: 100%;
+  }
+  .split-bar {
+    flex: 1;
+    min-width: 140px;
+    max-width: 220px;
+    text-align: center;
+  }
+  .split-bar .label-sm {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .split-bar .big-sm {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #c9a96e;
+    line-height: 1;
+    letter-spacing: -0.03em;
   }
 
   .moment {
@@ -395,6 +426,13 @@
   }
   .nav-dot:hover { background: rgba(255,255,255,0.4); }
 
+  /* Emoji gigantes */
+  .giant-emoji {
+    font-size: clamp(4rem, 14vw, 8rem);
+    line-height: 1;
+    margin: 16px 0;
+  }
+
   @media (max-width: 600px) {
     .nav-dots { right: 12px; gap: 8px; }
     .photo-frame { width: min(70vw, 280px); height: min(70vw, 280px); }
@@ -417,9 +455,12 @@
   <div class="nav-dot" data-i="8"></div>
   <div class="nav-dot" data-i="9"></div>
   <div class="nav-dot" data-i="10"></div>
+  <div class="nav-dot" data-i="11"></div>
+  <div class="nav-dot" data-i="12"></div>
+  <div class="nav-dot" data-i="13"></div>
 </div>
 
-<!-- HERO -->
+<!-- 1. HERO -->
 <section class="screen">
   <div class="label">Kevin & May · Wrapped</div>
   <div class="big">20</div>
@@ -431,7 +472,7 @@
   <div class="scroll-hint"><span>Scroll</span><span class="arrow"></span></div>
 </section>
 
-<!-- FOTO -->
+<!-- 2. FOTO -->
 <section class="screen">
   <div class="label">Ustedes</div>
   <div class="photo-frame">
@@ -440,7 +481,7 @@
   <div class="photo-names">Kevin<span class="amp">&</span>May</div>
 </section>
 
-<!-- TOTALES -->
+<!-- 3. TOTALES -->
 <section class="screen">
   <div class="label">Lo que se dijeron</div>
   <div class="big">228,240</div>
@@ -449,7 +490,7 @@
   <div class="sub">391 mensajes por día en promedio</div>
 </section>
 
-<!-- QUIÉN HABLA MÁS -->
+<!-- 4. QUIÉN HABLA MÁS -->
 <section class="screen">
   <div class="label">¿Quién habla más?</div>
   <div class="who-talks">
@@ -468,7 +509,7 @@
   <div class="sub">868 mensajes de diferencia. Casi empate.</div>
 </section>
 
-<!-- FRASES DEL AÑO (ambos) -->
+<!-- 5. FRASES DEL AÑO -->
 <section class="screen">
   <div class="label">Frases del año</div>
   <div class="frases-list">
@@ -482,7 +523,48 @@
   <div class="sub">Las cosas que más se dijeron entre ustedes.</div>
 </section>
 
-<!-- FRASES POR PERSONA (NUEVA: reemplaza "Palabras favoritas") -->
+<!-- 6. TE AMO (NUEVA) -->
+<section class="screen">
+  <div class="label">Te amo</div>
+  <div class="giant-emoji">❤️</div>
+  <div class="big">2,530</div>
+  <div class="sub">veces se dijeron "te amo"</div>
+  <div class="rule"></div>
+  <div class="split">
+    <div class="split-bar">
+      <div class="label-sm">Kevin</div>
+      <div class="big-sm">1,415</div>
+    </div>
+    <div class="split-bar">
+      <div class="label-sm">May</div>
+      <div class="big-sm">1,115</div>
+    </div>
+  </div>
+  <div class="rule"></div>
+  <div class="sub">Equivale a 4.3 "te amo" cada día en promedio.</div>
+</section>
+
+<!-- 7. RISAS COMPARTIDAS (NUEVA) -->
+<section class="screen">
+  <div class="label">Risas compartidas</div>
+  <div class="giant-emoji">😂</div>
+  <div class="big">13,162</div>
+  <div class="sub">"jajaja" entre los dos</div>
+  <div class="rule"></div>
+  <div class="sub">Eso son muchas risas en 20 meses. Su chat es oficialmente el lugar más feliz.</div>
+</section>
+
+<!-- 8. DÍA FAVORITO (NUEVA) -->
+<section class="screen">
+  <div class="label">Día favorito</div>
+  <div class="big">Jueves</div>
+  <div class="big" style="font-size:clamp(2rem,7vw,3.5rem);">41,585</div>
+  <div class="sub">mensajes en jueves</div>
+  <div class="rule"></div>
+  <div class="sub">Es el día que más hablaron. Los lunes, en cambio, son los más flojos.</div>
+</section>
+
+<!-- 9. FRASES FAVORITAS (Kevin vs May) -->
 <section class="screen">
   <div class="label">Frases favoritas</div>
   <div class="personas">
@@ -505,7 +587,7 @@
   </div>
 </section>
 
-<!-- HORA MÁS ACTIVA -->
+<!-- 10. HORA MÁS ACTIVA -->
 <section class="screen">
   <div class="label">Hora más activa</div>
   <div class="big">00:00</div>
@@ -514,7 +596,7 @@
   <div class="sub">Las altas horas de la madrugada son suyas. Segundo y tercer puesto: 23:00 y 1:00.</div>
 </section>
 
-<!-- MES MÁS ACTIVO -->
+<!-- 11. MES MÁS ACTIVO -->
 <section class="screen">
   <div class="label">Mes más activo</div>
   <div class="big-2">octubre 2025</div>
@@ -522,7 +604,7 @@
   <div class="sub">mensajes en un solo mes</div>
 </section>
 
-<!-- RACHA -->
+<!-- 12. RACHA -->
 <section class="screen">
   <div class="label">Racha máxima</div>
   <div class="big">280</div>
@@ -531,7 +613,7 @@
   <div class="sub">Y de 598 días totales, hubo 14 sin hablar. No está nada mal.</div>
 </section>
 
-<!-- PRIMER TE AMO -->
+<!-- 13. PRIMER TE AMO -->
 <section class="screen">
   <div class="label">El momento</div>
   <div class="moment">
@@ -543,7 +625,7 @@
   <div class="sub">Habían pasado 5 meses desde su primer mensaje.</div>
 </section>
 
-<!-- FOOTER -->
+<!-- 14. FOOTER -->
 <section class="screen footer-screen">
   <div class="heart">♥</div>
   <div class="label" style="margin-bottom:0;">Kevin & May</div>
@@ -555,29 +637,29 @@
 
 <script>
   const screens = document.querySelectorAll('.screen');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
+  const observer = new IntersectionObserver((entries) => {{
+    entries.forEach(entry => {{
+      if (entry.isIntersecting) {{
         const reveals = entry.target.querySelectorAll('.reveal');
-        reveals.forEach((el, i) => {
+        reveals.forEach((el, i) => {{
           el.style.animation = 'none';
           el.offsetHeight;
-          el.style.animation = `reveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) ${i * 0.15}s forwards`;
-        });
+          el.style.animation = `reveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) ${{i * 0.15}}s forwards`;
+        }});
         const idx = Array.from(screens).indexOf(entry.target);
-        document.querySelectorAll('.nav-dot').forEach((d, i) => {
+        document.querySelectorAll('.nav-dot').forEach((d, i) => {{
           d.classList.toggle('active', i === idx);
-        });
-      }
-    });
-  }, { threshold: 0.5 });
+        }});
+      }}
+    }});
+  }}, {{ threshold: 0.5 }});
   screens.forEach(s => observer.observe(s));
 
-  document.querySelectorAll('.nav-dot').forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      screens[i].scrollIntoView({ behavior: 'smooth' });
-    });
-  });
+  document.querySelectorAll('.nav-dot').forEach((dot, i) => {{
+    dot.addEventListener('click', () => {{
+      screens[i].scrollIntoView({{ behavior: 'smooth' }});
+    }});
+  }});
 </script>
 
 </body>
