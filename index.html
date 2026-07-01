@@ -32,7 +32,6 @@
     overflow: hidden;
   }
 
-  /* Background ambient glow */
   .screen::before {
     content: '';
     position: absolute;
@@ -48,19 +47,11 @@
 
   .screen > * { position: relative; z-index: 1; }
 
-  /* Reveal animations */
   .reveal {
     opacity: 0;
     transform: translateY(40px);
     animation: reveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   }
-  .reveal:nth-child(1) { animation-delay: 0.1s; }
-  .reveal:nth-child(2) { animation-delay: 0.3s; }
-  .reveal:nth-child(3) { animation-delay: 0.5s; }
-  .reveal:nth-child(4) { animation-delay: 0.7s; }
-  .reveal:nth-child(5) { animation-delay: 0.9s; }
-  .reveal:nth-child(6) { animation-delay: 1.1s; }
-
   @keyframes reveal {
     to { opacity: 1; transform: translateY(0); }
   }
@@ -99,6 +90,16 @@
     letter-spacing: -0.03em;
     line-height: 1.05;
     margin: 12px 0;
+  }
+
+  .phrase-big {
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 16px 0;
+    font-style: italic;
   }
 
   .sub {
@@ -164,6 +165,47 @@
     margin-top: 6px;
   }
 
+  .frases-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 32px;
+    max-width: 520px;
+    width: 100%;
+  }
+  .frase {
+    background: rgba(20, 20, 20, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #222;
+    padding: 18px 24px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+  }
+  .frase .rank {
+    flex: 0 0 36px;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #c9a96e;
+    text-align: center;
+  }
+  .frase .txt {
+    flex: 1;
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    font-weight: 500;
+    color: #fff;
+    font-style: italic;
+  }
+  .frase .count {
+    flex: 0 0 auto;
+    font-size: 0.8rem;
+    color: #888;
+    letter-spacing: 0.05em;
+  }
+
   .top-words {
     display: flex;
     flex-direction: column;
@@ -226,7 +268,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* FOOTER */
   .footer-screen {
     background: radial-gradient(ellipse at center, #1a1410 0%, #0a0a0a 70%);
   }
@@ -251,7 +292,6 @@
   }
   .footer-screen .sign .gold { color: #c9a96e; }
 
-  /* FOTO SCREEN */
   .photo-frame {
     width: min(75vw, 340px);
     height: min(75vw, 340px);
@@ -291,7 +331,6 @@
     font-weight: 400;
   }
 
-  /* Scroll hint */
   .scroll-hint {
     position: absolute;
     bottom: 32px;
@@ -317,7 +356,6 @@
     50% { opacity: 0.8; transform: translateX(-50%) translateY(6px); }
   }
 
-  /* Dot navigation */
   .nav-dots {
     position: fixed;
     right: 20px;
@@ -351,7 +389,6 @@
 </head>
 <body>
 
-<!-- Dot nav -->
 <div class="nav-dots" id="navDots">
   <div class="nav-dot active" data-i="0"></div>
   <div class="nav-dot" data-i="1"></div>
@@ -363,15 +400,16 @@
   <div class="nav-dot" data-i="7"></div>
   <div class="nav-dot" data-i="8"></div>
   <div class="nav-dot" data-i="9"></div>
+  <div class="nav-dot" data-i="10"></div>
 </div>
 
 <!-- HERO -->
 <section class="screen">
-  <div class="label reveal">Kevin & May · Wrapped</div>
-  <div class="big reveal">20</div>
-  <div class="sub reveal">meses de mensajes que valen oro</div>
-  <div class="rule reveal"></div>
-  <div class="sub reveal" style="font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:#888;">
+  <div class="label">Kevin & May · Wrapped</div>
+  <div class="big">20</div>
+  <div class="sub">meses de mensajes que valen oro</div>
+  <div class="rule"></div>
+  <div class="sub" style="font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:#888;">
     Desde el 10 de noviembre de 2024
   </div>
   <div class="scroll-hint"><span>Scroll</span><span class="arrow"></span></div>
@@ -379,26 +417,26 @@
 
 <!-- FOTO -->
 <section class="screen">
-  <div class="label reveal">Ustedes</div>
-  <div class="photo-frame reveal">
+  <div class="label">Ustedes</div>
+  <div class="photo-frame">
     <img src="kevin_may_foto.jpg" alt="Kevin & May">
   </div>
-  <div class="photo-names reveal">Kevin<span class="amp">&</span>May</div>
+  <div class="photo-names">Kevin<span class="amp">&</span>May</div>
 </section>
 
 <!-- TOTALES -->
 <section class="screen">
-  <div class="label reveal">Lo que se dijeron</div>
-  <div class="big reveal">228,240</div>
-  <div class="sub reveal">mensajes en 584 días</div>
-  <div class="rule reveal"></div>
-  <div class="sub reveal">391 mensajes por día en promedio</div>
+  <div class="label">Lo que se dijeron</div>
+  <div class="big">228,240</div>
+  <div class="sub">mensajes en 584 días</div>
+  <div class="rule"></div>
+  <div class="sub">391 mensajes por día en promedio</div>
 </section>
 
 <!-- QUIÉN HABLA MÁS -->
 <section class="screen">
-  <div class="label reveal">¿Quién habla más?</div>
-  <div class="who-talks reveal">
+  <div class="label">¿Quién habla más?</div>
+  <div class="who-talks">
     <div class="who">
       <div class="name">Kevin</div>
       <div class="pct">50.2%</div>
@@ -410,65 +448,67 @@
       <div class="msgs">113,686 mensajes</div>
     </div>
   </div>
-  <div class="rule reveal"></div>
-  <div class="sub reveal">868 mensajes de diferencia. Casi empate.</div>
+  <div class="rule"></div>
+  <div class="sub">868 mensajes de diferencia. Casi empate.</div>
 </section>
 
-<!-- PALABRA DEL AÑO -->
+<!-- FRASES DEL AÑO (NUEVA pantalla reemplazando "Palabra del año") -->
 <section class="screen">
-  <div class="label reveal">Palabra del año</div>
-  <div class="big reveal">amor</div>
-  <div class="sub reveal">dicha 12,392 veces en este chat</div>
-  <div class="rule reveal"></div>
-  <div class="top-words reveal">
-    <div class="top-word"><span class="rank">#2</span>así<span class="count">7,064</span></div>
-    <div class="top-word"><span class="rank">#3</span>hahaha<span class="count">5,873</span></div>
+  <div class="label">Frases del año</div>
+  <div class="frases-list">
+    <div class="frase"><div class="rank">1</div><div class="txt">"amo mucho"</div><div class="count">635×</div></div>
+    <div class="frase"><div class="rank">2</div><div class="txt">"gracias amor"</div><div class="count">563×</div></div>
+    <div class="frase"><div class="rank">3</div><div class="txt">"bueno amor"</div><div class="count">534×</div></div>
+    <div class="frase"><div class="rank">4</div><div class="txt">"amor linda"</div><div class="count">478×</div></div>
+    <div class="frase"><div class="rank">5</div><div class="txt">"hola amor"</div><div class="count">473×</div></div>
   </div>
+  <div class="rule"></div>
+  <div class="sub">Las cosas que más se dijeron entre ustedes.</div>
 </section>
 
 <!-- HORA MÁS ACTIVA -->
 <section class="screen">
-  <div class="label reveal">Hora más activa</div>
-  <div class="big reveal">00:00</div>
-  <div class="sub reveal">21,680 mensajes a esa hora</div>
-  <div class="rule reveal"></div>
-  <div class="sub reveal">Las altas horas de la madrugada son suyas. Segundo y tercer puesto: 23:00 y 1:00.</div>
+  <div class="label">Hora más activa</div>
+  <div class="big">00:00</div>
+  <div class="sub">21,680 mensajes a esa hora</div>
+  <div class="rule"></div>
+  <div class="sub">Las altas horas de la madrugada son suyas. Segundo y tercer puesto: 23:00 y 1:00.</div>
 </section>
 
 <!-- MES MÁS ACTIVO -->
 <section class="screen">
-  <div class="label reveal">Mes más activo</div>
-  <div class="big-2 reveal">octubre 2025</div>
-  <div class="big reveal" style="font-size:clamp(2rem,7vw,3.5rem);">15,786</div>
-  <div class="sub reveal">mensajes en un solo mes</div>
+  <div class="label">Mes más activo</div>
+  <div class="big-2">octubre 2025</div>
+  <div class="big" style="font-size:clamp(2rem,7vw,3.5rem);">15,786</div>
+  <div class="sub">mensajes en un solo mes</div>
 </section>
 
 <!-- RACHA -->
 <section class="screen">
-  <div class="label reveal">Racha máxima</div>
-  <div class="big reveal">280</div>
-  <div class="sub reveal">días seguidos escribiéndose</div>
-  <div class="rule reveal"></div>
-  <div class="sub reveal">Y de 598 días totales, hubo 14 sin hablar. No está nada mal.</div>
+  <div class="label">Racha máxima</div>
+  <div class="big">280</div>
+  <div class="sub">días seguidos escribiéndose</div>
+  <div class="rule"></div>
+  <div class="sub">Y de 598 días totales, hubo 14 sin hablar. No está nada mal.</div>
 </section>
 
 <!-- PRIMER TE AMO -->
 <section class="screen">
-  <div class="label reveal">El momento</div>
-  <div class="moment reveal">
+  <div class="label">El momento</div>
+  <div class="moment">
     <div class="who-quote">Kevin lo dijo primero</div>
     <div class="quote">"Te amo ❤️"</div>
     <div class="when">08 de April de 2025</div>
   </div>
-  <div class="rule reveal"></div>
-  <div class="sub reveal">Habían pasado 5 meses desde su primer mensaje.</div>
+  <div class="rule"></div>
+  <div class="sub">Habían pasado 5 meses desde su primer mensaje.</div>
 </section>
 
-<!-- PALABRAS DE CADA UNO -->
+<!-- PALABRAS FAVORITAS (sin top 3 ranking) -->
 <section class="screen">
-  <div class="label reveal">Palabras favoritas</div>
+  <div class="label">Palabras favoritas</div>
   <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;justify-content:center;">
-    <div class="reveal" style="text-align:left;">
+    <div style="text-align:left;">
       <div style="font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:#888;margin-bottom:16px;">Kevin</div>
       <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">1</span>amor<span class="count">9,752</span></div>
       <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">2</span>hahaha<span class="count">5,873</span></div>
@@ -476,7 +516,7 @@
       <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">4</span>está<span class="count">2,895</span></div>
       <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">5</span>voy<span class="count">2,143</span></div>
     </div>
-    <div class="reveal" style="text-align:left;">
+    <div style="text-align:left;">
       <div style="font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:#888;margin-bottom:16px;">May</div>
       <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">1</span>así<span class="count">3,764</span></div>
       <div class="top-word" style="font-size:0.95rem;padding:10px 22px;margin-bottom:6px;"><span class="rank">2</span>amor<span class="count">2,640</span></div>
@@ -489,16 +529,15 @@
 
 <!-- FOOTER -->
 <section class="screen footer-screen">
-  <div class="heart reveal">♥</div>
-  <div class="label reveal" style="margin-bottom:0;">Kevin & May</div>
-  <div class="big-2 reveal">Esto apenas empieza</div>
-  <div class="rule reveal"></div>
-  <div class="sub reveal" style="max-width:480px;">Del primer "Hola team frío" del 10 de noviembre de 2024 a hoy, este chat cuenta la historia de ustedes.</div>
-  <div class="sign reveal">Wrapped <span class="gold">·</span> Generado con datos reales <span class="gold">·</span> 1 de julio de 2026</div>
+  <div class="heart">♥</div>
+  <div class="label" style="margin-bottom:0;">Kevin & May</div>
+  <div class="big-2">Esto apenas empieza</div>
+  <div class="rule"></div>
+  <div class="sub" style="max-width:480px;">Del primer "Hola team frío" del 10 de noviembre de 2024 a hoy, este chat cuenta la historia de ustedes.</div>
+  <div class="sign">Wrapped <span class="gold">·</span> Generado con datos reales <span class="gold">·</span> 1 de julio de 2026</div>
 </section>
 
 <script>
-  // Animación de reveal al entrar cada screen
   const screens = document.querySelectorAll('.screen');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -506,10 +545,9 @@
         const reveals = entry.target.querySelectorAll('.reveal');
         reveals.forEach((el, i) => {
           el.style.animation = 'none';
-          el.offsetHeight; // reflow
+          el.offsetHeight;
           el.style.animation = `reveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) ${i * 0.15}s forwards`;
         });
-        // Update nav dots
         const idx = Array.from(screens).indexOf(entry.target);
         document.querySelectorAll('.nav-dot').forEach((d, i) => {
           d.classList.toggle('active', i === idx);
@@ -519,7 +557,6 @@
   }, { threshold: 0.5 });
   screens.forEach(s => observer.observe(s));
 
-  // Nav dots click
   document.querySelectorAll('.nav-dot').forEach((dot, i) => {
     dot.addEventListener('click', () => {
       screens[i].scrollIntoView({ behavior: 'smooth' });
